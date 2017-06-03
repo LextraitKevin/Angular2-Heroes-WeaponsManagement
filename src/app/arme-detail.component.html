@@ -1,0 +1,29 @@
+<div *ngIf="arme">
+  <h2>{{arme.name}} details!</h2>
+  <div>
+    <label>id: </label>{{arme.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="arme.name" placeholder="name" /><br>
+    <label>PV: </label>
+    <input [(ngModel)]="arme.PV"  type="number" (change)="Change()" min="-5" max="5" /><br>
+    <label>Defense: </label>
+    <input [(ngModel)]="arme.defense" type="number" (change)="Change()" min="-5" max="5"/><br>
+    <label>Attaque: </label>
+    <input [(ngModel)]="arme.attaque" type="number" (change)="Change()" min="-5" max="5"/><br>
+    <label>Esquive: </label>
+    <input [(ngModel)]="arme.Esquive" type="number" (change)="Change()" min="-5" max="5" />
+
+    <ul class="heroes">
+      <li *ngFor="let hero of heroes" (click)="onSelect(hero)"
+          [class.selected]="hero === selectedHero">
+        <span class="badge">{{hero.id}}</span>
+        <span>{{hero.name}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div id="alert"></div>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()" id="save">Save</button>
+</div>

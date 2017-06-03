@@ -29,3 +29,15 @@ Run `ng github-pages:deploy` to deploy to GitHub Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+##Partie 1  Editeur
+Etape 1 -- > Att Esq Dégat PV (somme 40) pas de négatif >0
+Etape 2 --> ajouter arme
+        --> somme =0 ( négatif autorisé [-5,5]
+        
+Etape 3 : associer avec un héro
+
+
+
+

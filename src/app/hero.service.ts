@@ -1,0 +1,106 @@
+import { Injectable }    from '@angular/core';
+import { Headers, Http } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+
+import { Hero } from './hero';
+
+@Injectable()
+export class HeroService {
+
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private heroesUrl = 'api/heroes';  // URL to web api
+
+  constructor(private http: Http) { }
+
+  /***
+   * Retourne tous les héros de l'API in memory
+   * @returns {Promise<Hero>}
+   */
+  getHeroes(): Promise<Hero[]> {
+    return this.http.get(this.heroesUrl)
+               .toPromise()
+               .then(response => response.json().data as Hero[])
+               .catch(this.handleError);
+  }
+
+
+  /***
+   * Retourne les héros associés à une arme
+   * @param armeId
+   * @returns {Promise<Hero>}
+   */
+  getHeroesArme(armeId:number): Promise<Hero[]> {
+    const url = `${this.heroesUrl}?Arme=${armeId}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().data as Hero[])
+      .catch(this.handleError);
+  }
+
+
+  /***
+   * Recupérère héro en fonction de son identifiant
+   * @param id
+   * @returns {Promise<Hero>}
+   */
+  getHero(id: number): Promise<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().data as Hero)
+      .catch(this.handleError);
+  }
+
+  /***
+   * Supprime un héro de la base
+   * @param id
+   * @returns {Promise<void>}
+   */
+  delete(id: number): Promise<void> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
+
+  /***
+   * Créer un héro dans la base avec son nom en paramètre
+   * @param name
+   * @returns {Promise<Arme>}
+   */
+  create(name: string): Promise<Hero> {
+    return this.http
+      .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
+
+  /***
+   * Mise à jour du héro en base avec celui passé en parametre
+   * @param hero
+   * @returns {Promise<Hero>}
+   */
+  update(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http
+      .put(url, JSON.stringify(hero), {headers: this.headers})
+      .toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
+  }
+
+  private handleError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
+  }
+}
+
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

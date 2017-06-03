@@ -1,0 +1,59 @@
+<div *ngIf="hero">
+  <h2>{{hero.name}} details!</h2>
+  <div>
+    <label>id: </label>{{hero.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="hero.name" placeholder="name" /><br>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <td></td>
+        <td>Stats héro</td>
+        <td *ngIf="arme">Total avec arme</td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td><label>PV: </label></td>
+        <td><input [(ngModel)]="hero.PV"  type="number" (change)="Change()" min="1" max="37" /></td>
+        <td *ngIf="arme">{{hero.PV+arme.PV}} ({{hero.PV}} + {{arme.PV}} )</td>
+      </tr>
+
+      <tr>
+        <td><label>Defense: </label></td>
+        <td><input [(ngModel)]="hero.defense" type="number" (change)="Change()" min="1" max="37"/></td>
+        <td *ngIf="arme">{{hero.defense+arme.defense}} ({{hero.defense}} + {{arme.defense}} )</td>
+      </tr>
+
+      <tr>
+        <td><label>Attaque: </label></td>
+        <td><input [(ngModel)]="hero.attaque" type="number" (change)="Change()" min="1" max="37"/></td>
+        <td *ngIf="arme">{{hero.attaque+arme.attaque}} ({{hero.attaque}} + {{arme.attaque}} )</td>
+      </tr>
+
+      <tr>
+        <td><label>Esquive: </label></td>
+        <td><input [(ngModel)]="hero.Esquive" type="number" (change)="Change()" min="1" max="37" /></td>
+        <td *ngIf="arme">{{hero.Esquive+arme.Esquive}} ({{hero.Esquive}} + {{arme.Esquive}} )</td>
+      </tr>
+
+    <label>Arme:</label>
+    <select name="arme" [(ngModel)]="hero.Arme">
+      <option value=""> Pas d'arme liée</option>
+      <option *ngFor="let arme of armes" value="{{arme.id}}"  [class.selected]="arme.id === hero.arme">
+        {{arme.name}}
+      </option>
+    </select><br>
+
+      </tbody>
+
+    </table>
+   </div>
+
+  <div id="alert"></div>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()" id="save">Save</button>
+</div>

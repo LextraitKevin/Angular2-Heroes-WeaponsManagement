@@ -1,0 +1,22 @@
+<h2>My Armes</h2>
+<div>
+  <label>Arme name:</label> <input #armeName />
+  <button (click)="add(armeName.value); armeName.value=''">
+    Add
+  </button>
+</div>
+<ul class="armes">
+  <li *ngFor="let arme of armes" (click)="onSelect(arme)"
+      [class.selected]="arme === selectedArme">
+    <span class="badge">{{arme.id}}</span>
+    <span>{{arme.name}}</span>
+    <button class="delete"
+            (click)="delete(arme); $event.stopPropagation()">x</button>
+  </li>
+</ul>
+<div *ngIf="selectedArme">
+  <h2>
+    {{selectedArme.name | uppercase}} is my arme
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>

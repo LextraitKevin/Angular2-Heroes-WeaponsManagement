@@ -1,0 +1,48 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<div class="container">
+  <div id="search-component">
+    <h4>Hero Search</h4>
+    <input #searchBox id="search-box" [(ngModel)]="nom" (keyup)="Change()" />
+    <span>Attaque : </span><input #searchBoxAtt id="search-boxAtt" [(ngModel)]="attaque" type="number" (keyup)="Change()" (change)="Change()" min="1" max="37" />
+    <span>Defense : </span><input #searchBoxDef id="search-boxDef" type="number" [(ngModel)]="defense" (keyup)="Change()" (change)="Change()" min="1" max="37" />
+    <span>Esquive : </span><input #searchBoxEsc id="search-boxEsc" type="number" [(ngModel)]="esquive"  (keyup)="Change()" (change)="Change()" min="1" max="37" />
+    <span>PV : </span><input #searchBoxPV id="search-boxPV" type="number" [(ngModel)]="PV"(change)="Change()" (keyup)="Change()" min="1" max="37" />
+    <span><label>Caractéristique de filtre</label><select name="arme" [(ngModel)]="filtre" (change)="sortHeroesArray()">
+      <option value="0" [class.selected]="filtre === 0"> Pas de filtre</option>
+      <option value="1" [class.selected]="filtre === 1"> Attaque</option>
+      <option value="2" [class.selected]="filtre === 2"> Défense</option>
+      <option value="3" [class.selected]="filtre === 3"> Esquive</option>
+      <option value="4" [class.selected]="filtre === 4"> PV</option>
+    </select></span>
+  </div>
+
+
+  <div *ngFor="let hero of heroes "
+       (click)="gotoDetail(hero)" class="">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">{{hero.name}}</div>
+        <div class="panel-body">
+          <div>Attaque : {{hero.attaque}}</div>
+          <div>Défense : {{hero.defense}}</div>
+          <div>Esquive : {{hero.Esquive}}</div>
+          <div>PV : {{hero.PV}}</div>
+          <div>Arme : {{getNameArmes(hero.Arme)}}</div>
+        </div>
+      </div>
+
+
+
+  </div>
+</div>
+
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
